@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import Swal from 'sweetalert2'
 
 @Component({
   selector: 'app-courses',
@@ -7,6 +8,7 @@ import { Component, OnInit } from '@angular/core';
 })
 export class CoursesComponent implements OnInit {
 
+  showList = true;
   editable = false;
   title = "Page of my Courses";
   myCourse = {
@@ -57,7 +59,41 @@ export class CoursesComponent implements OnInit {
   }
 
   deleteCourse(index) {
-    this.courses.splice(index, 1);
+    
+    Swal.fire({
+      title: 'Are you sure?',
+      text: 'You will not be able to recover this imaginary file!',
+      type: 'warning',
+      showCancelButton: true,
+      confirmButtonText: 'Yes, delete it!',
+      cancelButtonText: 'No, keep it'
+    }).then((result) => {
+      if (result.value) {
+
+        this.courses.splice(index, 1);
+        Swal.fire(
+          {
+            title: 'Course is deleted',
+            text: 'You will not be able to recover this imaginary file!',
+            type: 'success',
+            timer: 3000
+          }
+        )
+      // For more information about handling dismissals please visit
+      // https://sweetalert2.github.io/#handling-dismissals
+      } else if (result.dismiss === Swal.DismissReason.cancel) {
+        Swal.fire(
+          'Cancelled',
+          'Your imaginary file is safe :)',
+          'error'
+        )
+      }
+    })
+
+
+    
+   
+    
   }
 
   editCourse(course) {
@@ -74,6 +110,10 @@ export class CoursesComponent implements OnInit {
 
   toggleCourse(course) {
     course.active = !course.active;
+  }
+
+  showModeDisplay(etat) {
+    this.showList = etat;
   }
 
 }
