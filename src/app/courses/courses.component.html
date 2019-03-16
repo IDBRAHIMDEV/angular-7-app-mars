@@ -1,6 +1,94 @@
 <div>
-  <h1>Page courses</h1>
-  <p>Lorem ipsum dolor, sit amet consectetur adipisicing elit. Fuga facere dolor doloribus architecto dolores. Fuga, dolore voluptatem. Esse consequatur hic soluta? Voluptate molestias rerum, culpa quas minima tempora explicabo quos.   </p>
+  <h1>{{ title }}</h1>
+  
+  
+  <!-- <img [src]="image" alt="My picture"> -->
+  <input 
+         type="text"        
+         placeholder="New course..." 
+         class="form-control mb-1"
+         [(ngModel)]="myCourse.name"
+    
+  >
+  <input 
+  type="text"        
+  placeholder="Price" 
+  class="form-control mb-1"
+  [(ngModel)]="myCourse.price"
+ 
+>
+  <textarea class="form-control mb-2" placeholder="Description" rows="2" [(ngModel)]="myCourse.description"></textarea>
+ 
+ 
+  <button *ngIf="!editable" class="btn btn-success btn-block" (click)="addCourse()" [disabled]="courses.length == 10">
+    <i class="fa fa-plus"></i> Add
+  </button>
 
-  <button class="btn btn-success">Success</button>
+  <button *ngIf="editable" class="btn btn-warning btn-block" (click)="updateCourse()">
+      <i class="fa fa-refresh"></i> Update
+    </button>
+ 
+
+
+    
+    <div *ngIf="courses.length; then listCourses else noCourses"></div>
+
+    <ng-template #listCourses>
+        <div class="alert" [ngClass]="{
+          ' alert-info': courses.length < 5,
+          ' alert-secondary': courses.length >= 5,
+          ' alert-danger': courses.length == 10
+        }">
+            il y a {{ courses.length }} cours
+        </div> 
+    </ng-template>
+    
+    <ng-template #noCourses>
+      <div class="alert alert-warning" >
+        Pas de cours
+      </div> 
+    </ng-template>
+    
+    <table class="table" *ngIf="courses.length">
+      <thead>
+        <tr>
+          <th></th>
+          <th>Id</th>
+          <th>Name</th>
+          <th>Description</th>
+          <th>Price</th>
+          <th></th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr [ngClass]="{
+          'table-info': f,
+          'table-success': l
+        }" 
+        *ngFor="let course of courses; index as i, even as e, last as l, first as f">
+          <td>
+            <i class="fa fa-power-off" [ngClass]="{
+              'icon-danger': !course.active,
+              'icon-success': course.active
+            }"
+            (click)="toggleCourse(course)"></i>
+          </td>
+          <td scope="row" nowrap>{{ !e }} - {{ i }} - {{ course.id }}</td>
+          <td>{{ course.name }}</td>
+          <td>{{ course.description }}</td>
+          <td>{{ course.price }}</td>
+          <td class="text-right" nowrap>
+            <button class="btn btn-dark btn-sm"
+            (click)="editCourse(course)">
+              <i class="fa fa-pencil"></i>
+            </button>
+            <button class="btn ml-1 btn-danger btn-sm" 
+            (click)="deleteCourse(i)">
+              <i class="fa fa-trash"></i>
+            </button>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+
 </div>
