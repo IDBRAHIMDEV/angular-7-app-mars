@@ -1,0 +1,46 @@
+
+<h2>List of Posts</h2>
+<hr>
+    
+   <div class="row my-3">
+     <div class="col-md-6 mx-auto">
+       
+      <!-- (.form-group>label+input.form-control)+(.form-group>label+textarea.form-control)+(button.btn.btn-primary.btn-block>i.fa.fa-paper-plane) -->
+      <div class="form-group">
+        <label for="title">Title</label>
+        <input [(ngModel)]="myPost.title" id="title" placeholder="Title" type="text" class="form-control">
+      </div>
+
+      <div class="form-group">
+        <label for="body">Body</label>
+        <textarea [(ngModel)]="myPost.body" placeholder="Body" id="body" rows="4" class="form-control"></textarea>
+      </div>
+
+      <button class="btn btn-primary btn-block"
+      (click)="savePost()"
+      >
+       <i class="fa fa-paper-plane"></i> Add
+      </button>  
+
+     </div>
+   </div>
+
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th>Title</th>
+        <th>Body</th>
+        <th></th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr *ngFor="let post of posts">
+        <td>{{ post.title }}</td>
+        <td>{{ post.body }}</td>
+        <td class="text-right" nowrap>
+          <button class="btn btn-dark btn-sm mr-2"><i class="fa fa-pencil"></i></button>
+          <button class="btn btn-danger btn-sm"><i class="fa fa-times"></i></button>
+        </td>
+      </tr>
+    </tbody>
+  </table>
