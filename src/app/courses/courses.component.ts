@@ -16,13 +16,14 @@ export class CoursesComponent implements OnInit {
     name: '',
     description: '',
     price: 0,
-    active: false
+    active: false,
+    votes: {like: 0, disLike: 0},
   };
   courses = [
-    {id: 1, name: 'Angular 7', price: 125.785, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus', active: true},
-    {id: 2, name: 'Laravel', price: 27.7864, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus', active: true},
-    {id: 3, name: 'Symfony', price: 5.72745, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus ', active: true},
-    {id: 4, name: 'Spring BOOT', price: 15.127, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus', active: false},
+    {votes: {like: 4, disLike: 0}, id: 1, name: 'Angular 7', price: 125.785, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus', active: true},
+    {votes: {like: 10, disLike: 2}, id: 2, name: 'Laravel', price: 27.7864, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus', active: true},
+    {votes: {like: 2, disLike: 3}, id: 3, name: 'Symfony', price: 5.72745, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus ', active: true},
+    {votes: {like: 25, disLike: 1}, id: 4, name: 'Spring BOOT', price: 15.127, description: '  Lorem ipsum dolor sit amet consectetur adipisicing elit. Officia, minus', active: false},
   ];
 
   image = "https://avatars0.githubusercontent.com/u/6206647?s=460&v=4";
@@ -54,7 +55,8 @@ export class CoursesComponent implements OnInit {
       name: '',
       description: '',
       price: 0,
-      active: false
+      active: false,
+      votes: {like: 4, disLike: 0}
     };
   }
 
@@ -89,11 +91,6 @@ export class CoursesComponent implements OnInit {
         )
       }
     })
-
-
-    
-   
-    
   }
 
   editCourse(course) {
@@ -115,5 +112,14 @@ export class CoursesComponent implements OnInit {
   showModeDisplay(etat) {
     this.showList = etat;
   }
+
+  voteFromChildToParent(e, course) {
+     if(e.status) {
+       course.votes.like = e.data
+     }else {
+      course.votes.disLike = e.data
+     }
+  }
+
 
 }

@@ -29,8 +29,6 @@
     </button>
  
 
-
-    
     <div *ngIf="courses.length; then listCourses else noCourses"></div>
 
     <ng-template #listCourses>
@@ -66,71 +64,9 @@
       
       </div>
 
-    <div class="row" *ngIf="!showList">
-        <div class="col-md-4" *ngFor="let course of courses; index as i, even as e, last as l, first as f">
-          <div class="card my-2">
-           
-            <div class="card-body">
-              <h4 class="card-title">{{ course.name | uppercase }}</h4>
-              <div class="card-text">
-                <p>{{ course.description }}</p>  
-                <div class="text-center">
-                    <button class="btn btn-dark btn-sm"
-                      (click)="editCourse(course)">
-                        <i class="fa fa-pencil"></i> Edit
-                      </button>
-                      <button class="btn ml-1 btn-danger btn-sm" 
-                      (click)="deleteCourse(i)">
-                        <i class="fa fa-trash"></i> Delete
-                      </button>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </div> 
+    <app-card-course [courses]="courses" *ngIf="!showList"></app-card-course>
 
-    <table class="table" *ngIf="courses.length && showList" >
-      <thead>
-        <tr>
-          <th></th>
-          
-          <th>Name</th>
-          <th>Description</th>
-          <th>Price</th>
-          <th></th>
-        </tr>
-      </thead>
-      <tbody>
+    <app-table-course [courses]="courses" *ngIf="showList"></app-table-course>
 
-        <tr [ngClass]="{
-          'table-info': f,
-          'table-success': l
-        }" 
-        *ngFor="let course of courses; index as i, even as e, last as l, first as f">
-          <td style="cursor: pointer">
-            <i class="fa fa-power-off" [ngClass]="{
-              'icon-danger': !course.active,
-              'icon-success': course.active
-            }"
-            (click)="toggleCourse(course)"></i>
-          </td>
-          
-          <td>{{ course.name | titlecase }}</td>
-          <td>{{ course.description }}</td>
-          <td>{{ course.price | currency:'USD':'symbol':'1.1-1' }}</td>
-          <td class="text-right" nowrap>
-            <button class="btn btn-dark btn-sm"
-            (click)="editCourse(course)">
-              <i class="fa fa-pencil"></i>
-            </button>
-            <button class="btn ml-1 btn-danger btn-sm" 
-            (click)="deleteCourse(i)">
-              <i class="fa fa-trash"></i>
-            </button>
-          </td>
-        </tr>
-      </tbody>
-    </table>
 
 </div>

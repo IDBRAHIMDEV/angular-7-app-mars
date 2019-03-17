@@ -5,12 +5,18 @@ import { AppComponent } from './app.component';
 import { CoursesComponent } from './courses/courses.component';
 import { NavbarComponent } from './navbar/navbar.component';
 import { FormsModule } from '@angular/forms';
+import { VotesComponent } from './votes/votes.component';
+import { CardCourseComponent } from './card-course/card-course.component';
+import { TableCourseComponent } from './table-course/table-course.component';
 
 @NgModule({
   declarations: [
     AppComponent,
     CoursesComponent,
-    NavbarComponent
+    NavbarComponent,
+    VotesComponent,
+    CardCourseComponent,
+    TableCourseComponent
   ],
   imports: [
     BrowserModule,
