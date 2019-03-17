@@ -15,4 +15,12 @@ export class PostService {
   persistPost(post) {
     return this.http.post('https://jsonplaceholder.typicode.com/posts', post);
   }
+
+  deletePost(id) {
+    return this.http.delete(`https://jsonplaceholder.typicode.com/posts/${id}`);
+  }
+
+  updatePost(post) {
+    return this.http.put(`https://jsonplaceholder.typicode.com/posts/${post.id}`, post);
+  }
 }
